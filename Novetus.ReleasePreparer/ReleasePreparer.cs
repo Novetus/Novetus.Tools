@@ -1,4 +1,5 @@
 ﻿#region Usings
+using Novetus.Core;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -20,7 +21,7 @@ namespace Novetus.ReleasePreparer
             {
                 if (args.Contains("-snapshot"))
                 {
-                    string infopath = novpath + @"\\config\\info.ini";
+                    string infopath = novpath + @"\\config\\info.json";
                     string currver = GetBranch(infopath);
                     TurnOnInitialSequence(infopath);
 
@@ -49,7 +50,7 @@ namespace Novetus.ReleasePreparer
 
         public static void DoRelease(string novpath)
         {
-            string infopath = novpath + @"\\config\\info.ini";
+            string infopath = novpath + @"\\config\\info.json";
             string currbranch = GetBranch(infopath);
             TurnOnInitialSequence(infopath);
 
@@ -66,42 +67,17 @@ namespace Novetus.ReleasePreparer
             Console.WriteLine("Created " + path);
         }
 
-        public static void FixedFileCopy(string src, string dest, bool overwrite)
-        {
-            if (File.Exists(dest))
-            {
-                File.SetAttributes(dest, FileAttributes.Normal);
-            }
-
-            File.Copy(src, dest, overwrite);
-            File.SetAttributes(dest, FileAttributes.Normal);
-        }
-
-        public static void FixedFileDelete(string src)
-        {
-            if (File.Exists(src))
-            {
-                File.SetAttributes(src, FileAttributes.Normal);
-                File.Delete(src);
-            }
-        }
-
         public static string GetBranch(string infopath)
         {
-            INIFile ini = new INIFile(infopath);
-            return GetBranch(ini, infopath);
-        }
-
-        public static string GetBranch(INIFile ini, string infopath)
-        {
             //READ
-            string versionbranch, extendedVersionNumber, extendedVersionTemplate, extendedVersionRevision, isLite;
             string section = "ProgramInfo";
-            versionbranch = ini.IniReadValue(section, "Branch", "0.0");
-            extendedVersionNumber = ini.IniReadValue(section, "ExtendedVersionNumber", "False");
-            extendedVersionTemplate = ini.IniReadValue(section, "ExtendedVersionTemplate", "%version%");
-            extendedVersionRevision = ini.IniReadValue(section, "ExtendedVersionRevision", "-1");
-            isLite = ini.IniReadValue(section, "IsLite", "False");
+            JSONFile json = new JSONFile(infopath, section, false);
+            string versionbranch, extendedVersionNumber, extendedVersionTemplate, extendedVersionRevision, isLite;
+            versionbranch = json.JsonReadValue(section, "Branch", "0.0");
+            extendedVersionNumber = json.JsonReadValue(section, "ExtendedVersionNumber", "False");
+            extendedVersionTemplate = json.JsonReadValue(section, "ExtendedVersionTemplate", "%version%");
+            extendedVersionRevision = json.JsonReadValue(section, "ExtendedVersionRevision", "-1");
+            isLite = json.JsonReadValue(section, "IsLite", "False");
 
             string novpath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\\Novetus\\bin\\Novetus.exe";
 
@@ -120,35 +96,16 @@ namespace Novetus.ReleasePreparer
             }
         }
 
-        public static void SetToLite(string infopath)
-        {
-            INIFile ini = new INIFile(infopath);
-            string section = "ProgramInfo";
-            string isLite = ini.IniReadValue(section, "IsLite", "False");
-
-            try
-            {
-                if (!isLite.Equals("True"))
-                {
-                    ini.IniWriteValue(section, "IsLite", "True");
-                }
-            }
-            catch (Exception)
-            {
-                SetToLite(infopath);
-            }
-        }
-
         public static void TurnOnInitialSequence(string infopath)
         {
             //READ
-            INIFile ini = new INIFile(infopath);
             string section = "ProgramInfo";
+            JSONFile json = new JSONFile(infopath, section, false);
 
-            string initialBootup = ini.IniReadValue(section, "InitialBootup", "True");
+            string initialBootup = json.JsonReadValue(section, "InitialBootup", "True");
             if (Convert.ToBoolean(initialBootup) == false)
             {
-                ini.IniWriteValue(section, "InitialBootup", "True");
+                json.JsonWriteValue(section, "InitialBootup", "True");
             }
         }
     }
