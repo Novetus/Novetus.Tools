@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Novetus.Internal.ReleasePre
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Novetus.ClientScriptTester", "Novetus.ClientScriptTester\Novetus.ClientScriptTester.csproj", "{83B08607-65B8-4F9C-8D0F-AB1C8EEFFAE0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Novetus.Internal.ReleasePreparer.Legacy", "Novetus.ReleasePreparer.Legacy\Novetus.Internal.ReleasePreparer.Legacy.csproj", "{649CCA01-EFE9-4D10-B378-F7A7400F5CB8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{83B08607-65B8-4F9C-8D0F-AB1C8EEFFAE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{83B08607-65B8-4F9C-8D0F-AB1C8EEFFAE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{83B08607-65B8-4F9C-8D0F-AB1C8EEFFAE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{649CCA01-EFE9-4D10-B378-F7A7400F5CB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{649CCA01-EFE9-4D10-B378-F7A7400F5CB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{649CCA01-EFE9-4D10-B378-F7A7400F5CB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{649CCA01-EFE9-4D10-B378-F7A7400F5CB8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
