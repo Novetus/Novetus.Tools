@@ -15,7 +15,7 @@ namespace Novetus.ReleasePreparer
     {
         static void Main(string[] args)
         {
-            string novpath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\\Novetus";
+            string novpath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\\Novetus\\data";
 
             if (args.Length > 0)
             {
@@ -79,7 +79,7 @@ namespace Novetus.ReleasePreparer
             extendedVersionRevision = json.JsonReadValue(section, "ExtendedVersionRevision", "-1");
             isLite = json.JsonReadValue(section, "IsLite", "False");
 
-            string novpath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\\Novetus\\bin\\Novetus.exe";
+            string novpath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\\Novetus\\data\\bin\\Novetus.exe";
 
             if (!extendedVersionNumber.Equals("False"))
             {
